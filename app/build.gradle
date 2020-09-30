@@ -18,7 +18,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://private-4639ce-ecommerce56.apiary-mock.com/\""
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable true
+        }
         release {
+            buildConfigField "String", "BASE_URL", "\"https://private-4639ce-ecommerce56.apiary-mock.com/\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
