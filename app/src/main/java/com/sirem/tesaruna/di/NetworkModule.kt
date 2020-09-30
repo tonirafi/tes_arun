@@ -1,5 +1,6 @@
 package com.sirem.tesaruna.di
 
+import com.sirem.tesaruna.BuildConfig
 import com.sirem.tesaruna.utils.RestApi
 import dagger.Module
 import dagger.Provides

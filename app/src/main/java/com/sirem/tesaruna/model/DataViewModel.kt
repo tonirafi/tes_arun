@@ -35,10 +35,6 @@ class DataViewModel @Inject constructor(val application: Application, val dataRe
 
     val liveDataPurchased = MutableLiveData<ArrayList<DataNews>>()
 
-    fun getAllPurchased() {
-        liveDataPurchased.postValue(dataRepository.getAllPurchased())
-
-    }
 
 
 //    fun insertProduk(produk: DataNews) {

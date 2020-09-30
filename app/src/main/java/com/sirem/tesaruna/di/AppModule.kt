@@ -3,7 +3,7 @@ package com.sirem.tesaruna.di
 import android.app.Application
 import androidx.room.Room
 import com.sirem.tesaruna.model.DataRepository
-import com.tes.tesshtq.room.AppDatabase
+import com.sirem.tesaruna.room.AppDatabase
 import com.sirem.tesaruna.room.DAO
 import com.sirem.tesaruna.utils.RestApi
 import dagger.Module
@@ -19,8 +19,8 @@ class AppModule {
     // Method #1
     @Singleton
     @Provides
-    fun providesAppDatabase(app:Application):AppDatabase{
-        return Room.databaseBuilder(app,AppDatabase::class.java,"note_database").build()
+    fun providesAppDatabase(app:Application): AppDatabase {
+        return Room.databaseBuilder(app, AppDatabase::class.java,"post_database").build()
     }
 
     // Method #2

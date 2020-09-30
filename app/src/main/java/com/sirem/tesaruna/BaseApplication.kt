@@ -2,6 +2,7 @@ package com.sirem.tesaruna
 
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.sirem.tesaruna.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
