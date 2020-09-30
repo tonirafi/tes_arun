@@ -2,22 +2,37 @@ package com.sirem.tesaruna.model
 
 import com.sirem.tesaruna.room.DAO
 import com.sirem.tesaruna.utils.RestApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DataRepository @Inject constructor(val dao: DAO, val service: RestApi) {
-   suspend fun getAllProduk(): ArrayList<DataNews>{
+   suspend fun getAllDataApi(): ArrayList<DataNews>{
 
-//        return ArrayList<Data<ResponseHome>>()
         return service?.getDataPost()!!
     }
 
-    fun insertPurchased(data:DataNews) {
-
-//        CoroutineScope().launch {
-//            dao.insertProdak(data)
-
-//        }
+    fun insertPost(data:DataNews) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.insert(data)
+        }
     }
 
+    fun insertPost(listData:ArrayList<DataNews>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.insert(listData)
+        }
+    }
+
+    fun insertPostAll(data:DataNews) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.insert(data)
+        }
+    }
+
+    fun getAllDataLocal(search:String): List<DataNews> {
+        return dao.getAll(search)
+    }
 
 }

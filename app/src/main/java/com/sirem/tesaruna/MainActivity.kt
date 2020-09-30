@@ -35,10 +35,7 @@ class MainActivity : DaggerAppCompatActivity () {
                 adapter.addAll(it!!)
             } else {
 
-//                Tools.showPesan(it.message, requireContext())
             }
-
-
 
         })
 
@@ -61,7 +58,7 @@ class MainActivity : DaggerAppCompatActivity () {
 
     fun getData(){
         swipe_refresh_layout.isRefreshing = true
-
+        adapter.clear()
         viewModel.getDataPost()
 
     }

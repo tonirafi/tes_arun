@@ -17,11 +17,10 @@ class DataViewModel @Inject constructor(val application: Application, val dataRe
         viewModelScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    dataRepository.getAllProduk()
+                    dataRepository.getAllDataApi()
                 }
                 liveDataPost.postValue(result)
             } catch (exception: Exception) {
-//                uiState.value = UiState.Error("Network Request failed")
                 Log.d("error courotin",exception.message.toString())
             }
 
@@ -29,26 +28,27 @@ class DataViewModel @Inject constructor(val application: Application, val dataRe
 
     }
 
-    fun insertData(produk: DataNews) {
-        dataRepository.insertPurchased(produk)
+    fun insertData(post: DataNews) {
+        dataRepository.insertPost(post)
     }
 
-    val liveDataPurchased = MutableLiveData<ArrayList<DataNews>>()
+    fun insertDataAll(post: ArrayList<DataNews>) {
+        dataRepository.insertPost(post)
+    }
 
+    private val liveDataLocal = MutableLiveData<ArrayList<DataNews>>()
+    fun getLisDataLocal(title: String) {
+        viewModelScope.launch {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    dataRepository.getAllDataLocal(title)
+                }
+                liveDataLocal.postValue(ArrayList(result))
+            } catch (exception: Exception) {
+                Log.d("error courotin",exception.message.toString())
+            }
 
+        }
 
-//    fun insertProduk(produk: DataNews) {
-//        dataRepository.insertDada(produk)
-//    }
-//
-//    fun deleteAllProduk() {
-//        dataRepository.deleteAllProdak()
-//    }
-//
-//    val liveDataProdukLocal = MutableLiveData<ArrayList<DataNews>>()
-//
-//    fun getListProduk(title: String) {
-//        liveDataProdukLocal.postValue(produkRepository.getAllProduk("%$title%"))
-//
-//    }
+    }
 }

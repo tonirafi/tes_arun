@@ -10,18 +10,12 @@ import com.sirem.tesaruna.model.DataNews
 interface DAO {
 
     @Insert
-    fun insertPurchased(prodakModel: Array<out DataNews?>)
-
-    @Query("SELECT * FROM DataNews")
-    fun getAllPurchased(): List<DataNews>
+    fun insert(dataNews: DataNews)
 
 
     @Insert
-    fun insertProdak(prodakModel: Array<out DataNews?>)
+    fun insert(listData: ArrayList<DataNews>)
 
     @Query("SELECT * FROM DataNews WHERE title LIKE :search")
-    fun getAllProduk(search:String): List<DataNews>
-
-    @Query("DELETE FROM DataNews")
-    fun deleteAllProdak()
+    fun getAll(search:String): List<DataNews>
 }
