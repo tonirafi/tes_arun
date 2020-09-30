@@ -12,14 +12,14 @@ import javax.inject.Inject
 
 class DataViewModel @Inject constructor(val application: Application, val dataRepository: DataRepository) : ViewModel() {
 
-    val liveDataPost = MutableLiveData<ArrayList<DataNews>>()
+    val liveDataPostApi = MutableLiveData<ArrayList<DataNews>>()
     fun getDataPost() {
         viewModelScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
                     dataRepository.getAllDataApi()
                 }
-                liveDataPost.postValue(result)
+                liveDataPostApi.postValue(result)
             } catch (exception: Exception) {
                 Log.d("error courotin",exception.message.toString())
             }
@@ -36,7 +36,7 @@ class DataViewModel @Inject constructor(val application: Application, val dataRe
         dataRepository.insertPost(post)
     }
 
-    private val liveDataLocal = MutableLiveData<ArrayList<DataNews>>()
+    val liveDataLocal = MutableLiveData<ArrayList<DataNews>>()
     fun getLisDataLocal(title: String) {
         viewModelScope.launch {
             try {

@@ -1,7 +1,5 @@
 package com.sirem.tesaruna
 
-import android.app.ProgressDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,13 +26,23 @@ class MainActivity : DaggerAppCompatActivity () {
     }
 
     private fun setLiveData() {
-        viewModel.liveDataPost.observe(this, Observer {
+        viewModel.liveDataPostApi.observe(this, Observer {
+            swipe_refresh_layout.isRefreshing = false
+            if (it?.size != 0 ) {
+                adapter.addAll(it!!)
+                viewModel.insertDataAll(it)
+            } else {
+
+            }
+
+        })
+        viewModel.liveDataLocal.observe(this, Observer {
             swipe_refresh_layout.isRefreshing = false
 
             if (it?.size != 0 ) {
                 adapter.addAll(it!!)
             } else {
-
+                getDataApi()
             }
 
         })
@@ -46,9 +54,9 @@ class MainActivity : DaggerAppCompatActivity () {
         val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = adapter
-        getData()
+        getDataLocal()
         swipe_refresh_layout.setOnRefreshListener {
-            getData()
+            getDataLocal()
         }
     }
 
@@ -56,13 +64,19 @@ class MainActivity : DaggerAppCompatActivity () {
         viewModel = ViewModelProvider(this,viewmodelProviderFactory).get(DataViewModel::class.java)
     }
 
-    fun getData(){
+    fun getDataLocal(){
+        swipe_refresh_layout.isRefreshing = true
+        adapter.clear()
+        viewModel.getLisDataLocal("")
+
+    }
+
+    fun getDataApi(){
         swipe_refresh_layout.isRefreshing = true
         adapter.clear()
         viewModel.getDataPost()
 
     }
-
 
 
 }

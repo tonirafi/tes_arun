@@ -25,12 +25,6 @@ class DataRepository @Inject constructor(val dao: DAO, val service: RestApi) {
         }
     }
 
-    fun insertPostAll(data:DataNews) {
-        CoroutineScope(Dispatchers.IO).launch {
-            dao.insert(data)
-        }
-    }
-
     fun getAllDataLocal(search:String): List<DataNews> {
         return dao.getAll(search)
     }
