@@ -28,10 +28,6 @@ class DataViewModel @Inject constructor(val application: Application, val dataRe
 
     }
 
-    fun insertData(post: DataNews) {
-        dataRepository.insertPost(post)
-    }
-
     fun insertDataAll(post: ArrayList<DataNews>) {
         dataRepository.insertPost(post)
     }
@@ -41,7 +37,7 @@ class DataViewModel @Inject constructor(val application: Application, val dataRe
         viewModelScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    dataRepository.getAllDataLocal(title)
+                    dataRepository.getAllDataLocal("%$title%")
                 }
                 liveDataLocal.postValue(ArrayList(result))
             } catch (exception: Exception) {
