@@ -12,14 +12,14 @@ import javax.inject.Inject
 
 class DataViewModel @Inject constructor(val application: Application, val dataRepository: DataRepository) : ViewModel() {
 
-    val liveDataProdak = MutableLiveData<ArrayList<DataNews>>()
-    fun getDataProdukNew() {
+    val liveDataPost = MutableLiveData<ArrayList<DataNews>>()
+    fun getDataPost() {
         viewModelScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
                     dataRepository.getAllProduk()
                 }
-                liveDataProdak.postValue(result)
+                liveDataPost.postValue(result)
             } catch (exception: Exception) {
 //                uiState.value = UiState.Error("Network Request failed")
                 Log.d("error courotin",exception.message.toString())
